@@ -67,11 +67,13 @@
     <ClCompile Include="Conversion.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Requests.cpp" />
+    <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="Users.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Conversion.h" />
     <ClInclude Include="Requests.h" />
+    <ClInclude Include="Simulator.h" />
     <ClInclude Include="Users.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
