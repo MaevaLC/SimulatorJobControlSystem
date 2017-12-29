@@ -19,6 +19,11 @@ protected:
 	std::vector<Request> *spec_requestProcessing;
 	std::vector<Request> *spec_requestQueue;
 	bool processFull;
+	std::vector<Request> hugeR_queue;
+	Request *hugeRProcessed;
+	bool hugeRequestSpot;
+	std::vector<int> beginWorkingWeek;
+	std::vector<int> endWorkingWeek;
 public:
 	Simulator(long runningTime);
 	~Simulator();
@@ -27,4 +32,6 @@ public:
 	void checkQueueAvailable(std::vector<Request> *ReqQueue, std::vector<Request> *ReqProcess, int nbNodes);
 	void checkNewRequest();
 	void processCurentWork(std::vector<Request> *ReqProcess);
+	void processHugeRQueue();
+	void completeHugeRQueue();
 };

@@ -13,18 +13,28 @@ std::uniform_int_distribution<long> specialGrantLeft_distribution(0, 20000);
 
 User::User(){
 	ID = IDdistribution(Ugenerator);
+	temporaryCharged = 0;
 }
 
-bool User::checkBudget(long price){
+bool User::checkBudget(double price){
 	return false; }
 
+void User::setTempCharged(double price){
+	temporaryCharged += price;
+}
+
+double User::getTempCharged(){
+	return temporaryCharged;
+}
+
+void User::setCharged(double price){}
 
 Student::Student() : User() {
 	instantCap = instantCap_distribution(Ugenerator);
 	cumulCapLeft = cumulCapLeft_distribution(Ugenerator);
 }
 
-bool Student::checkBudget(long price){
+bool Student::checkBudget(double price){
 	bool granted;
 	if ((price < instantCap) && (price < cumulCapLeft)){
 		granted = true;
@@ -35,19 +45,34 @@ bool Student::checkBudget(long price){
 	return granted;
 }
 
+void Student::setCharged(double price){
+	cumulCapLeft -= price;
+}
+
 
 Researcher::Researcher() : User() {
 	groupBudgetLeft = groupBudgetLeft_distribution(Ugenerator);
 	specialGrantLeft = specialGrantLeft_distribution(Ugenerator);
 }
 
-bool Researcher::checkBudget(long price){
+bool Researcher::checkBudget(double price){
 	bool granted;
-	if ((price < specialGrantLeft) || (price < groupBudgetLeft)){
+	if (price < specialGrantLeft + groupBudgetLeft){
 		granted = true;
 	}
 	else {
 		granted = false;
 	}
 	return granted;
+}
+
+void Researcher::setCharged(double price){
+	if (price < specialGrantLeft){
+		specialGrantLeft -= price;
+	}
+	else {
+		price -= specialGrantLeft;
+		specialGrantLeft = 0;
+		groupBudgetLeft -= price;
+	}
 }

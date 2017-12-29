@@ -53,6 +53,7 @@ largeR::largeR() : Request() {
 }
 
 hugeR::hugeR() : Request() {
+	typeNodes = 123;
 	typeRequest = 3;
 	nbNodes = 128;
 	nbCores = 128*16;
@@ -80,4 +81,16 @@ long Request::getTimeCap(){
 
 int Request::getTypeNodes(){
 	return typeNodes;
+}
+
+User Request::getEnquirer(){
+	return *enquirer;
+}
+
+double Request::getCost(){
+	return cost;
+}
+
+int Request::getTypeRequest(){
+	return typeRequest;
 }

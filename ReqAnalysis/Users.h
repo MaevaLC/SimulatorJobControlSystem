@@ -4,28 +4,34 @@
 class User {
 protected:
 	int ID;
+	double temporaryCharged;
 public:
 	User();
-	virtual bool checkBudget(long price);
+	virtual bool checkBudget(double price);
+	void setTempCharged(double price);
+	virtual void setCharged(double price);
+	double getTempCharged();
 };
 
 
 class Student : public User{
 protected:
-	long instantCap;
-	long cumulCapLeft;
+	double instantCap;
+	double cumulCapLeft;
 public:
 	Student();
-	virtual bool checkBudget(long price);
+	virtual bool checkBudget(double price);
+	virtual void setCharged(double price);
 };
 
 
 class Researcher : public User{
 protected:
-	long groupBudgetLeft;
-	long specialGrantLeft;
+	double groupBudgetLeft;
+	double specialGrantLeft;
 public:
 	Researcher();
-	virtual bool checkBudget(long price);
+	virtual bool checkBudget(double price);
+	virtual void setCharged(double price);
 };
 

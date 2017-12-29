@@ -22,6 +22,9 @@ public:
 	int getNodes();
 	long getTimeCap();
 	int getTypeNodes();
+	User getEnquirer();
+	double getCost();
+	int getTypeRequest();
 };
 
 class shortR : public Request{

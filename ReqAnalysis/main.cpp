@@ -3,7 +3,8 @@
 
 
 int main(){
-	long runningTime = 104 * 3600;
+	std::vector<int> endWeek = { 7, 0, 0, 0 };
+	long runningTime = convert(endWeek);
 	Simulator *simulationFCFS;
 	simulationFCFS = new Simulator(runningTime);
 	(*simulationFCFS).executionSimulation();
