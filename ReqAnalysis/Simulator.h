@@ -34,4 +34,5 @@ public:
 	void processCurentWork(std::vector<Request> *ReqProcess);
 	void processHugeRQueue();
 	void completeHugeRQueue();
+	std::vector<int> repartition();
 };

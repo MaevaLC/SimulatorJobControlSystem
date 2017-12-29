@@ -78,6 +78,7 @@ void Simulator::executionSimulation(){
 		}
 		timeElapsed += 1;
 	}
+	std::cout << "\n";
 }
 
 
@@ -108,12 +109,26 @@ void Simulator::checkQueueAvailable(std::vector<Request> *ReqQueue, std::vector<
 				processFull = true;
 			}
 			else {
-				(*ReqProcess).push_back((*ReqQueue)[0]);
-				double cost = (*ReqQueue)[0].getCost();
-				(*ReqQueue)[0].getEnquirer().setCharged(cost);
-				(*ReqQueue)[0].getEnquirer().setTempCharged(-cost);
-				freeNodes -= ((*ReqQueue)[0]).getNodes();
-				(*ReqQueue).erase((*ReqQueue).begin());				
+				bool reservedSpaceRespected = false;
+				int lenghtRequest = ((*ReqQueue)[0]).getTypeRequest();
+				std::vector<int> repart = repartition();
+				switch (lenghtRequest){
+				case 0: if (((repart[1] + repart[3] + ((*ReqQueue)[0]).getNodes()) / nbNodes) > (0.3)){ reservedSpaceRespected = true; }; break;
+				case 1: if (((repart[0] + repart[3] + ((*ReqQueue)[0]).getNodes()) / nbNodes) > (0.1)){ reservedSpaceRespected = true; }; break;
+				case 2: if (((repart[0] + repart[1] + repart[3] + ((*ReqQueue)[0]).getNodes()) / nbNodes) > (0.4)){ reservedSpaceRespected = true; }; break;
+				default: exit(44);
+				}
+				if (reservedSpaceRespected == true){
+					(*ReqProcess).push_back((*ReqQueue)[0]);
+					double cost = (*ReqQueue)[0].getCost();
+					(*ReqQueue)[0].getEnquirer().setCharged(cost);
+					(*ReqQueue)[0].getEnquirer().setTempCharged(-cost);
+					freeNodes -= ((*ReqQueue)[0]).getNodes();
+					(*ReqQueue).erase((*ReqQueue).begin());
+				}
+				else {
+					processFull = true;
+				}
 			}
 		}
 	}
@@ -132,8 +147,8 @@ void Simulator::checkNewRequest(){
 			double costNewR = (*newR).getCost();
 			if ((*newR).getEnquirer().checkBudget(costNewR + ((*newR).getEnquirer().getTempCharged())) == true){
 				(*newR).getEnquirer().setTempCharged(costNewR);
-				int lentghtNewR = (*newR).getTypeRequest();
-				if (lentghtNewR == 3){
+				int lenghtNewR = (*newR).getTypeRequest();
+				if (lenghtNewR == 3){
 					hugeR_queue.push_back(*newR);
 				}
 				else {
@@ -180,4 +195,24 @@ void Simulator::processHugeRQueue(){
 	else {
 		hugeRequestSpot = false;
 	}
+}
+
+std::vector<int> Simulator::repartition(){
+	std::vector<int> repart = std::vector<int>(4);
+	std::vector<std::vector<Request>> differentQueue = { *trad_requestProcessing, *acc_requestProcessing, *spec_requestProcessing };
+	for (int q = 0; q < differentQueue.size(); q++){
+		for (int i = 0; i < differentQueue[q].size(); i++){
+			int n = differentQueue[q][i].getNodes();
+			int r = differentQueue[q][i].getTypeNodes();
+			switch (r){
+			case 0: repart[0] += n; break;
+			case 1: repart[1] += n; break;
+			case 2: repart[2] += n; break;
+			default: exit(55);
+			}
+		}
+	}
+	int totalNodes = nbAcceleratedNodes + nbSpecializedNodes + nbTraditionalNodes;
+	repart[3] = totalNodes - repart[0] - repart[1] - repart[2];
+	return repart;
 }
