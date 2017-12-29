@@ -67,6 +67,10 @@ void Simulator::executionSimulation(){
 			processCurentWork(trad_requestProcessing);
 			processCurentWork(acc_requestProcessing);
 			processCurentWork(spec_requestProcessing);
+
+			addWaitTime(trad_requestQueue);
+			addWaitTime(acc_requestQueue);
+			addWaitTime(spec_requestQueue);
 		}
 		else {
 			if (hugeRequestSpot == false) {
@@ -173,6 +177,13 @@ void Simulator::processCurentWork(std::vector<Request> *ReqProcess){
 	int sizeTrad = (*ReqProcess).size();
 	for (int i = sizeTrad; i > 0; i--){
 		((*ReqProcess)[i-1]).setTime( ((*ReqProcess)[i-1]).getTime() - 1 );
+	}
+}
+
+void Simulator::addWaitTime(std::vector<Request> *ReqQueue){
+	int sizeTrad = (*ReqQueue).size();
+	for (int i = sizeTrad; i > 0; i--){
+		((*ReqQueue)[i - 1]).setTime(((*ReqQueue)[i - 1]).getTime() + 1);
 	}
 }
 

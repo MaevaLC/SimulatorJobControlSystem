@@ -23,6 +23,7 @@ Request::Request(){
 	std::default_random_engine typeGenerator(std::random_device{}());
 	std::discrete_distribution<int> typeDistribution{ 11, 3, 1};
 	typeNodes = typeDistribution(typeGenerator);
+	waitTime = 0;
 }
 
 shortR::shortR() : Request() {	

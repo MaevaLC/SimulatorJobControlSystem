@@ -35,4 +35,5 @@ public:
 	void processHugeRQueue();
 	void completeHugeRQueue();
 	std::vector<int> repartition();
+	void addWaitTime(std::vector<Request> *ReqQueue);
 };

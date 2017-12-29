@@ -14,6 +14,7 @@ protected:
 	int nbCores;
 	long timeCap;
 	long time;
+	long waitTime;
 	double cost;
 public:
 	Request();
