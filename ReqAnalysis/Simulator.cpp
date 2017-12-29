@@ -2,7 +2,7 @@
 
 
 Request *getRandomRequest() {
-	std::default_random_engine requestGenerator;
+	std::default_random_engine requestGenerator(std::random_device{}());
 	std::discrete_distribution<int> requestDistribution{ 10, 5, 2, 1};
 	int r = requestDistribution(requestGenerator);
 	switch (r) {
@@ -69,8 +69,8 @@ void Simulator::executionSimulation(){
 void Simulator::checkWorkOver(std::vector<Request> *ReqProcess){
 	int sizeProcess = (*ReqProcess).size();
 	for (int i = sizeProcess; i > 0; i--){
-		if (((*ReqProcess)[i]).getTime() == 0){
-			(*ReqProcess).erase((*ReqProcess).begin() + i);
+		if (((*ReqProcess)[i-1]).getTime() == 0){
+			(*ReqProcess).erase((*ReqProcess).begin() + i-1);
 			processFull = false;
 		}
 	}
@@ -103,10 +103,10 @@ void Simulator::checkQueueAvailable(std::vector<Request> *ReqQueue, std::vector<
 
 
 void Simulator::checkNewRequest(){
-	std::default_random_engine EDgenerator;
-	std::exponential_distribution<double> EDdistribution(1);
-	double EDnumber = EDdistribution(EDgenerator) * timeElapsed;
-	if (EDnumber < 0.1) {
+	std::default_random_engine EDgenerator (std::random_device{}());
+	std::exponential_distribution<double> EDdistribution(2);
+	double EDnumber = EDdistribution(EDgenerator);
+	if (EDnumber < 1) {
 		Request *newR;
 		newR = getRandomRequest();
 		int r = (*newR).getTypeNodes();
@@ -123,6 +123,6 @@ void Simulator::checkNewRequest(){
 void Simulator::processCurentWork(std::vector<Request> *ReqProcess){
 	int sizeTrad = (*ReqProcess).size();
 	for (int i = sizeTrad; i > 0; i--){
-		((*ReqProcess)[i]).setTime( ((*ReqProcess)[i]).getTime() - 1 );
+		((*ReqProcess)[i-1]).setTime( ((*ReqProcess)[i-1]).getTime() - 1 );
 	}
 }

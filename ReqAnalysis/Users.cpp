@@ -1,7 +1,7 @@
 #include "Users.h"
 
 
-std::default_random_engine Ugenerator;
+std::default_random_engine Ugenerator (std::random_device{}());
 std::uniform_int_distribution<int> IDdistribution(10000, 65535);
 
 std::uniform_int_distribution<long> instantCap_distribution(100, 200);

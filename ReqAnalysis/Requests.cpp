@@ -1,7 +1,7 @@
 #include "Requests.h"
 
 
-std::default_random_engine Rgenerator;
+std::default_random_engine Rgenerator(std::random_device{}());
 std::uniform_int_distribution<int> nodeShort_distribution(1, 2);
 std::uniform_int_distribution<int> nodeMedium_distribution(1, 13);
 std::uniform_int_distribution<int> nodeLarge_distribution(1, 64);
@@ -20,7 +20,7 @@ User *getRandomUser() {
 
 Request::Request(){
 	enquirer = getRandomUser();
-	std::default_random_engine typeGenerator;
+	std::default_random_engine typeGenerator(std::random_device{}());
 	std::discrete_distribution<int> typeDistribution{ 11, 3, 1};
 	typeNodes = typeDistribution(typeGenerator);
 }

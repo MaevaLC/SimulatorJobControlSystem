@@ -3,7 +3,7 @@
 
 
 int main(){
-	long runningTime = 104;
+	long runningTime = 104 * 3600;
 	Simulator *simulationFCFS;
 	simulationFCFS = new Simulator(runningTime);
 	(*simulationFCFS).executionSimulation();
