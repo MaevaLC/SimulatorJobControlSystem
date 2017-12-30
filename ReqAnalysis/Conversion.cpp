@@ -1,6 +1,5 @@
 #include "Conversion.h"
 
-
 std::vector<int> convert(long input_seconds){
 	int days = input_seconds / 60 / 60 / 24;
 	int hours = (input_seconds / 60 / 60) % 24;

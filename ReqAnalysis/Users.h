@@ -1,18 +1,16 @@
 #include <random>
 
-
 class User {
 protected:
 	int ID;
 	double temporaryCharged;
 public:
 	User();
-	virtual bool checkBudget(double price);
-	void setTempCharged(double price);
-	virtual void setCharged(double price);
 	double getTempCharged();
+	virtual bool checkBudget(double price);
+	virtual void setCharged(double price);
+	void setTempCharged(double price);
 };
-
 
 class Student : public User{
 protected:
@@ -20,10 +18,9 @@ protected:
 	double cumulCapLeft;
 public:
 	Student();
-	virtual bool checkBudget(double price);
+	bool checkBudget(double price) override;
 	virtual void setCharged(double price);
 };
-
 
 class Researcher : public User{
 protected:
@@ -31,7 +28,6 @@ protected:
 	double specialGrantLeft;
 public:
 	Researcher();
-	virtual bool checkBudget(double price);
+	bool checkBudget(double price) override;
 	virtual void setCharged(double price);
 };
-

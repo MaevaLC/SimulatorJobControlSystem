@@ -1,15 +1,14 @@
 #include "Users.h"
 
+std::default_random_engine Ugenerator(std::random_device{}());
 
-std::default_random_engine Ugenerator (std::random_device{}());
 std::uniform_int_distribution<int> IDdistribution(10000, 65535);
 
-std::uniform_int_distribution<long> instantCap_distribution(100, 200);
-std::uniform_int_distribution<long> cumulCapLeft_distribution(0, 2000);
+std::uniform_int_distribution<long> instantCap_distribution(100, 2000);
+std::uniform_int_distribution<long> cumulCapLeft_distribution(0, 20000);
 
-std::uniform_int_distribution<long> groupBudgetLeft_distribution(0, 100000);
-std::uniform_int_distribution<long> specialGrantLeft_distribution(0, 20000);
-
+std::uniform_int_distribution<long> groupBudgetLeft_distribution(0, 1000000);
+std::uniform_int_distribution<long> specialGrantLeft_distribution(0, 200000);
 
 User::User(){
 	ID = IDdistribution(Ugenerator);
@@ -17,7 +16,8 @@ User::User(){
 }
 
 bool User::checkBudget(double price){
-	return false; }
+	return false;
+}
 
 void User::setTempCharged(double price){
 	temporaryCharged += price;
@@ -48,7 +48,6 @@ bool Student::checkBudget(double price){
 void Student::setCharged(double price){
 	cumulCapLeft -= price;
 }
-
 
 Researcher::Researcher() : User() {
 	groupBudgetLeft = groupBudgetLeft_distribution(Ugenerator);
