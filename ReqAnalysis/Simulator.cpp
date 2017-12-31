@@ -1,14 +1,14 @@
 #include "Simulator.h"
 
-Request *getRandomRequest(){
+Request *getRandomRequest(double r1, double r2, double r3, double r4, double u1, double u2){
 	std::default_random_engine requestGenerator(std::random_device{}());
-	std::discrete_distribution<int> requestDistribution{ 10, 5, 2, 1 };
+	std::discrete_distribution<int> requestDistribution{ r1, r2, r3, r4 };
 	int r = requestDistribution(requestGenerator);
 	switch (r) {
-	case 0: return new shortR();
-	case 1: return new mediumR();
-	case 2: return new largeR();
-	case 3: return new hugeR();
+	case 0: return new shortR(u1, u2);
+	case 1: return new mediumR(u1, u2);
+	case 2: return new largeR(u1, u2);
+	case 3: return new hugeR(u1, u2);
 	default: return NULL;
 	}
 }
@@ -37,8 +37,8 @@ Simulator::Simulator(long runningTime){
 	totalPricePaid = 0;
 	trad_requestProcessing = new std::vector<Request>(0);
 	trad_requestQueue = new std::vector<Request>(0);
-	turnaroundLength = std::vector<long>(4);
-	turnaroundType = std::vector<long>(4);
+	turnaroundLength = std::vector<double>(4);
+	turnaroundType = std::vector<double>(4);
 	waitEachQueueLength = std::vector<long>(4);
 	waitEachQueueType = std::vector<long>(4);
 }
@@ -53,9 +53,9 @@ Simulator::~Simulator(){
 	delete trad_requestQueue;
 }
 
-void Simulator::executionSimulation(){
+void Simulator::executionSimulation(double r1, double r2, double r3, double r4, double u1, double u2){
 	while (timeElapsed < runningTime) {
-		checkNewRequest();
+		checkNewRequest(r1, r2, r3, r4, u1, u2);
 		if ((timeElapsed > convert(beginWorkingWeek)) && (timeElapsed < convert(endWorkingWeek))){
 			checkWorkOver(trad_requestProcessing);
 			checkWorkOver(acc_requestProcessing);
@@ -100,9 +100,9 @@ void Simulator::executionSimulation(){
 	std::cout << "Traditional : " << numberJobEachQueueType[0] << ", Accelerated : " << numberJobEachQueueType[1]
 		<< ", Specialized : " << numberJobEachQueueType[2] << ", Hybrid : " << numberJobEachQueueType[3] << "\n" << "\n";
 	
-	std::vector<long> answer = averageStatistic();
+	std::vector<double> answer = averageStatistic();
 
-	std::cout << "Wait time (hrs): " << "\n";
+	std::cout << "Wait time (minutes): " << "\n";
 	std::cout << "per length: ";
 	std::cout << " Short : " << answer[0] << ", Medium : " << answer[1]
 		<< ", Large : " << answer[2] << ", Huge : " << answer[3] << "\n";
@@ -110,7 +110,9 @@ void Simulator::executionSimulation(){
 	std::cout << "Traditional : " << answer[4] << ", Accelerated : " << answer[5]
 		<< ", Specialized : " << answer[6] << ", Hybrid : " << answer[7] << "\n" << "\n";
 
-	std::cout << "Turnaround time (hrs): " << "\n";
+	std::cout << std::fixed << std::setprecision(1);
+
+	std::cout << "Turnaround ratio (1 is optimum): " << "\n";
 	std::cout << "per length: ";
 	std::cout << " Short : " << answer[8] << ", Medium : " << answer[9]
 		<< ", Large : " << answer[10] << ", Huge : " << answer[11] << "\n";
@@ -121,12 +123,12 @@ void Simulator::executionSimulation(){
 	std::cin.get();
 }
 
-void Simulator::checkNewRequest(){
+void Simulator::checkNewRequest(double r1, double r2, double r3, double r4, double u1, double u2){
 	std::vector<int> date = convert(timeElapsed);
-	if ((date[1] > 9) && (date[1] < 17) && (date[0] < 6)){
+	if ((date[1] > 8) && (date[1] < 17) && (date[0] < 5)){
 		if (timerNextRequest < 1) {
 			Request *newR;
-			newR = getRandomRequest();
+			newR = getRandomRequest(r1, r2, r3, r4, u1, u2);
 			double costNewR = (*newR).getCost();
 			double tempChar = (*newR).getEnquirerTempCharged();
 			bool budget = (*newR).checkUserCanPay(costNewR + tempChar);
@@ -152,7 +154,7 @@ void Simulator::checkNewRequest(){
 			std::default_random_engine EDgenerator(std::random_device{}());
 			std::exponential_distribution<double> EDdistribution(2);
 			double weighting = double(timeElapsed) / double(runningTime);
-			timerNextRequest = long(EDdistribution(EDgenerator) * 3600 * weighting);
+			timerNextRequest = long(EDdistribution(EDgenerator) * 3600);
 		}
 		else {
 			timerNextRequest -= 60;
@@ -278,29 +280,29 @@ void Simulator::statistic(Request req){
 	long w = req.getWaitTime();
 	waitEachQueueLength[l] += w;
 	waitEachQueueType[t] += w;
-	long turnaround = (w + s) / s;
+	double turnaround = (w + s) / s;
 	turnaroundLength[l] += turnaround;
 	turnaroundType[t] += turnaround;
 }
 
-std::vector<long> Simulator::averageStatistic(){
-	std::vector<long> answer = std::vector<long>(16);
+std::vector<double> Simulator::averageStatistic(){
+	std::vector<double> answer = std::vector<double>(16);
 	for (int i = 0; i < 4; i++){
 		if (numberJobEachQueueLength[i] == 0){
 			answer[i] = 0;
 			answer[i + 8] = 0;
 		}
 		else {
-			answer[i] = waitEachQueueLength[i] / numberJobEachQueueLength[i] / 3600;
-			answer[i + 8] = turnaroundLength[i] / numberJobEachQueueLength[i] / 3600;
+			answer[i] = waitEachQueueLength[i] / numberJobEachQueueLength[i] / 60;
+			answer[i + 8] = turnaroundLength[i] / numberJobEachQueueLength[i];
 		}
 		if (numberJobEachQueueType[i] == 0){
 			answer[i + 4] = 0;
 			answer[i + 12] = 0;
 		}
 		else {
-			answer[i + 4] = waitEachQueueType[i] / numberJobEachQueueType[i] / 3600;
-			answer[i + 12] = turnaroundType[i] / numberJobEachQueueType[i] / 3600;
+			answer[i + 4] = waitEachQueueType[i] / numberJobEachQueueType[i] / 60;
+			answer[i + 12] = turnaroundType[i] / numberJobEachQueueType[i];
 		}
 	}
 	return answer;

@@ -1,8 +1,6 @@
 #include <random>
 #include "Users.h"
 
-User *getRandomUser();
-
 class Request {
 protected:
 	double cost;
@@ -16,6 +14,7 @@ protected:
 	User *enquirer;
 public:
 	Request();
+	Request(double u1, double u2);
 	bool checkUserCanPay(double price);
 	double getCost();
 	double getEnquirerTempCharged();
@@ -33,20 +32,20 @@ public:
 
 class shortR : public Request{
 public:
-	shortR();
+	shortR(double u1, double u2);
 };
 
 class mediumR : public Request{
 public:
-	mediumR();
+	mediumR(double u1, double u2);
 };
 
 class largeR : public Request{
 public:
-	largeR();
+	largeR(double u1, double u2);
 };
 
 class hugeR : public Request{
 public:
-	hugeR();
+	hugeR(double u1, double u2);
 };

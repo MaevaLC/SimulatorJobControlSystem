@@ -4,11 +4,11 @@ std::default_random_engine Ugenerator(std::random_device{}());
 
 std::uniform_int_distribution<int> IDdistribution(10000, 65535);
 
-std::uniform_int_distribution<long> instantCap_distribution(100, 2000);
-std::uniform_int_distribution<long> cumulCapLeft_distribution(0, 20000);
+std::uniform_int_distribution<long> instantCap_distribution(10, 20);
+std::uniform_int_distribution<long> cumulCapLeft_distribution(0, 100);
 
-std::uniform_int_distribution<long> groupBudgetLeft_distribution(0, 1000000);
-std::uniform_int_distribution<long> specialGrantLeft_distribution(0, 200000);
+std::uniform_int_distribution<long> groupBudgetLeft_distribution(0, 1000);
+std::uniform_int_distribution<long> specialGrantLeft_distribution(0, 500);
 
 User::User(){
 	ID = IDdistribution(Ugenerator);
