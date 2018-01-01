@@ -1,6 +1,20 @@
+/**
+* \file      main.cpp
+* \author    m.leclech
+* \version   1.0
+* \date      08 January 2018
+* \brief     Launch the simulation with parameters choosen by the IT service
+*
+* \details   The IT support member need to specify the ratio needed for each jobs (short, medium,
+*			 large, huge). Then they need to specify the ratio of student:researchers.  The 
+*			 simulation run from Monday 00:00:00 to Sunday 23:59:59. Then the program return
+*			 some statistics about the behaviour of the scheduler and the states of jobs.
+*/
+
 #include "Simulator.h"
 
 int main(){
+	// the parameters are entered by the user of the program
 	std::vector<int> jobRatio = std::vector<int>(0);
 	std::vector<int> userRatio = std::vector<int>(0);
 	int inputV;
@@ -17,7 +31,7 @@ int main(){
 			std::cout << "\n";
 			std::cin.clear();
 			std::cin.ignore(999, '\n');
-		}	
+		}
 	}
 	std::cin.clear();
 	std::cin.ignore(999, '\n');
@@ -38,6 +52,7 @@ int main(){
 	}
 	std::cin.clear();
 	std::cin.ignore(999, '\n');
+	// one every parameters is input, and checked to be valid for our simulation, the simulation begin
 	std::vector<int> endWeek = { 7, 0, 0, 0 };
 	long runningTime = convert(endWeek);
 	Simulator *simulationFCFS;

@@ -1,3 +1,16 @@
+/**
+* \file      Simulator.cpp
+* \author    m.leclech
+* \version   1.0
+* \date      08 January 2018
+* \brief     Define the simulator behaviour
+*
+* \details   There is a single class, Simulator, which describe the behaviour of the scheduler.
+*			 To test different scheduler algorithm, the IT support member can create a second
+*			 "checkQueueAvailable" method, which is the method determining how to place the
+*			 jobs waiting in the different queues in the processing system.
+*/
+
 #include "Simulator.h"
 
 Request *getRandomRequest(double r1, double r2, double r3, double r4, double u1, double u2){
@@ -89,8 +102,8 @@ void Simulator::executionSimulation(double r1, double r2, double r3, double r4, 
 	std::cout << "X stand for Irrelevant." << "\n" << "\n";
 
 	double maxMH = (nbAcceleratedNodes + nbSpecializedNodes + nbTraditionalNodes) * 24 * 7;
-	std::cout << "Machine-Hours consumed: " << machineHours  << " (" << machineHours*100/(maxMH) << "% of the systeme)\n" << "\n";
-	std::cout << "Total price paid by users: " << totalPricePaid << "\n" ;
+	std::cout << "Machine-Hours consumed: " << machineHours << " (" << machineHours * 100 / (maxMH) << "% of the systeme)\n" << "\n";
+	std::cout << "Total price paid by users: " << totalPricePaid << "\n";
 	std::cout << "As the price of the system per week is estimated at 968 pounds sterling," << "\n"
 		<< " the economic balance is: " << int(totalPricePaid - 968) << " pounds sterling.\n" << "\n";
 	std::cout << "Number of users denied for insufficient funds: " << nbUsersDenied << "\n" << "\n";
@@ -102,7 +115,7 @@ void Simulator::executionSimulation(double r1, double r2, double r3, double r4, 
 	std::cout << "per type: ";
 	std::cout << "Traditional : " << numberJobEachQueueType[0] << ", Accelerated : " << numberJobEachQueueType[1]
 		<< ", Specialized : " << numberJobEachQueueType[2] << ", Hybrid : " << numberJobEachQueueType[3] << "\n" << "\n";
-	
+
 	std::vector<double> answer = averageStatistic();
 
 	std::cout << "Wait time in each queue (minutes): " << "\n";
@@ -234,7 +247,7 @@ void Simulator::addWaitTime(std::vector<Request> *ReqQueue){
 
 void Simulator::completeHugeRQueue(){
 	std::vector<int> date = convert(timeElapsed);
-	if ((hugeR_queue.size() > 0) && (date[0] == 5)  && (date[1] < 18)){
+	if ((hugeR_queue.size() > 0) && (date[0] == 5) && (date[1] < 18)){
 		*hugeRProcessed = hugeR_queue[0];
 		statistic(*hugeRProcessed);
 		double cost = hugeR_queue[0].getCost();

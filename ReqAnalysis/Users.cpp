@@ -1,3 +1,18 @@
+/**
+* \file      Users.cpp
+* \author    m.leclech
+* \version   1.0
+* \date      08 January 2018
+* \brief     Define the class to describe the users submiting jobs.
+*
+* \details   There is a mother class, User, which regroup all common elements of an user
+*			 There are also the 2 sub classes, defining the different types of users.
+*              - The Student
+*              - The Researchers
+*			 Each of them have dfferent type of budget, and so difference to check if they
+*			 can afford the job.
+*/
+
 #include "Users.h"
 
 std::default_random_engine Ugenerator(std::random_device{}());
