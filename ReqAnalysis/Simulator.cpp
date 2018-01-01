@@ -123,6 +123,7 @@ void Simulator::executionSimulation(double r1, double r2, double r3, double r4, 
 	std::cout << "Traditional : " << answer[12] << ", Accelerated : " << answer[13]
 		<< ", Specialized : " << answer[14] << ", Hybrid : " << "X" << "\n" << "\n";
 
+	std::cout << "Press Enter to terminate this simulation.";
 	std::cin.get();
 }
 

@@ -7,9 +7,9 @@ int main(){
 	std::cout << "Enter the proportion of jobs you want to: " << "\n";
 	std::cout << "(Exemple: I wish to have a ratio of 11 short jobs for 5 medium jobs, 2 large jobs et 1 huge job. I enter : 11 5 2 1)" << "\n";
 	while (jobRatio.size() < 4) {
-		if (std::cin >> inputV) { jobRatio.push_back(inputV); }
+		if ((std::cin >> inputV) && (inputV > -1)) { jobRatio.push_back(inputV); }
 		else {
-			std::cout << "Please enter valid integers:" << "\n";
+			std::cout << "Please enter positive integers:" << "\n";
 			std::cout << "So far, you have already input: ";
 			for (int j = 0; j < int(jobRatio.size()); j++){
 				std::cout << jobRatio[j] << " ";
@@ -24,9 +24,9 @@ int main(){
 	std::cout << "Enter the proportion of users you want to: " << "\n";
 	std::cout << "(Exemple: I wish to have a ratio of 1 student for 1 researcher. I enter : 1 1)" << "\n";
 	while (userRatio.size() < 2) {
-		if (std::cin >> inputV) { userRatio.push_back(inputV); }
+		if ((std::cin >> inputV) && (inputV > -1)) { userRatio.push_back(inputV); }
 		else {
-			std::cout << "Please enter valid integers:" << "\n";
+			std::cout << "Please enter positive integers:" << "\n";
 			std::cout << "So far, you have already input: ";
 			for (int j = 0; j < int(userRatio.size()); j++){
 				std::cout << userRatio[j] << " ";
