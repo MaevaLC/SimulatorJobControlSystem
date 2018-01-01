@@ -83,10 +83,13 @@ void Simulator::executionSimulation(double r1, double r2, double r3, double r4, 
 		}
 		timeElapsed += 60;
 	}
+	std::cout << "\n" << "\n";
 	std::cout << "All these statistics are given for jobs processed this week only." << "\n";
-	std::cout << "It does not include jobs sumbmitted this week and queued but not processed yet." << "\n" << "\n";
+	std::cout << "It does not include jobs sumbmitted this week and queued but not processed yet." << "\n";
+	std::cout << "X stand for Irrelevant." << "\n" << "\n";
 
-	std::cout << "Machine-Hours consumed: " << machineHours << "\n" << "\n";
+	double maxMH = (nbAcceleratedNodes + nbSpecializedNodes + nbTraditionalNodes) * 24 * 7;
+	std::cout << "Machine-Hours consumed: " << machineHours  << " (" << machineHours*100/(maxMH) << "% of the systeme)\n" << "\n";
 	std::cout << "Total price paid by users: " << totalPricePaid << "\n" ;
 	std::cout << "As the price of the system per week is estimated at 968 pounds sterling," << "\n"
 		<< " the economic balance is: " << int(totalPricePaid - 968) << " pounds sterling.\n" << "\n";
@@ -102,23 +105,23 @@ void Simulator::executionSimulation(double r1, double r2, double r3, double r4, 
 	
 	std::vector<double> answer = averageStatistic();
 
-	std::cout << "Wait time (minutes): " << "\n";
+	std::cout << "Wait time in each queue (minutes): " << "\n";
 	std::cout << "per length: ";
 	std::cout << " Short : " << answer[0] << ", Medium : " << answer[1]
-		<< ", Large : " << answer[2] << ", Huge : " << answer[3] << "\n";
+		<< ", Large : " << answer[2] << ", Huge : " << "X" << "\n";
 	std::cout << "per type: ";
 	std::cout << "Traditional : " << answer[4] << ", Accelerated : " << answer[5]
-		<< ", Specialized : " << answer[6] << ", Hybrid : " << answer[7] << "\n" << "\n";
+		<< ", Specialized : " << answer[6] << ", Hybrid : " << "X" << "\n" << "\n";
 
 	std::cout << std::fixed << std::setprecision(1);
 
-	std::cout << "Turnaround ratio (1 is optimum): " << "\n";
+	std::cout << "Turnaround ratio (1 is the optimum ratio): " << "\n";
 	std::cout << "per length: ";
 	std::cout << " Short : " << answer[8] << ", Medium : " << answer[9]
-		<< ", Large : " << answer[10] << ", Huge : " << answer[11] << "\n";
+		<< ", Large : " << answer[10] << ", Huge : " << "X" << "\n";
 	std::cout << "per type : ";
 	std::cout << "Traditional : " << answer[12] << ", Accelerated : " << answer[13]
-		<< ", Specialized : " << answer[14] << ", Hybrid : " << answer[15] << "\n" << "\n";
+		<< ", Specialized : " << answer[14] << ", Hybrid : " << "X" << "\n" << "\n";
 
 	std::cin.get();
 }
@@ -152,9 +155,10 @@ void Simulator::checkNewRequest(double r1, double r2, double r3, double r4, doub
 				nbUsersDenied += 1;
 			}
 			std::default_random_engine EDgenerator(std::random_device{}());
-			std::exponential_distribution<double> EDdistribution(2);
-			double weighting = double(timeElapsed) / double(runningTime);
-			timerNextRequest = long(EDdistribution(EDgenerator) * 3600);
+			std::exponential_distribution<double> EDdistribution(1);
+			double EDnumber = EDdistribution(EDgenerator);
+			while (EDnumber > 1.0) EDnumber = EDdistribution(EDgenerator);
+			timerNextRequest = long(EDnumber * 3600);
 		}
 		else {
 			timerNextRequest -= 60;
@@ -228,8 +232,10 @@ void Simulator::addWaitTime(std::vector<Request> *ReqQueue){
 }
 
 void Simulator::completeHugeRQueue(){
-	if (hugeR_queue.size() > 0){
+	std::vector<int> date = convert(timeElapsed);
+	if ((hugeR_queue.size() > 0) && (date[0] == 5)  && (date[1] < 18)){
 		*hugeRProcessed = hugeR_queue[0];
+		statistic(*hugeRProcessed);
 		double cost = hugeR_queue[0].getCost();
 		hugeR_queue[0].setEnquirerCharged(cost);
 		hugeR_queue[0].setEnquirerTempCharged(-cost);
