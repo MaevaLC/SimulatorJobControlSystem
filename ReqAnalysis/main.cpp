@@ -52,7 +52,7 @@ int main(){
 	}
 	std::cin.clear();
 	std::cin.ignore(999, '\n');
-	// one every parameters is input, and checked to be valid for our simulation, the simulation begin
+	// once every parameters is input, and checked to be valid for our simulation, the simulation begin
 	std::vector<int> endWeek = { 7, 0, 0, 0 };
 	long runningTime = convert(endWeek);
 	Simulator *simulationFCFS;
