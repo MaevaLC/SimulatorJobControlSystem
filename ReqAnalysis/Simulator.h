@@ -30,7 +30,7 @@
 */
 class Simulator{
 protected:
-	bool hugeRequestSpot; //!< a flag, to know is a huge request is being processed or scheduled for the WE
+	bool hugeRequestSpot; //!< a flag, to know if a huge request is being processed or scheduled for the WE
 	bool processFull; //!< a flag, to know if the system is already full, in its number of nodes used.
 	double totalPricePaid; //!< statistic - the total price paid by the users
 	double machineHours; //!< statistic - the machine-hours amount used during the simulation

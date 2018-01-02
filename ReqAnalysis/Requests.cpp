@@ -17,9 +17,11 @@
 
 // a random generator, able to work on different distributions
 std::default_random_engine Rgenerator(std::random_device{}());
+// these values defines the size of each request
 std::uniform_int_distribution<int> nodeShort_distribution(1, 2);
 std::uniform_int_distribution<int> nodeMedium_distribution(1, 12);
 std::uniform_int_distribution<int> nodeLarge_distribution(1, 64);
+// the lambda of the time distribution can be changed here
 std::exponential_distribution<double> time_distribution(1);
 
 /**

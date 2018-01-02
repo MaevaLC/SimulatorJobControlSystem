@@ -1,4 +1,4 @@
-﻿La génération a démarré 01/01/2018 19:44:09.
+﻿La génération a démarré 02/01/2018 20:36:27.
      1>Projet "D:\Cranfield\ReqAnalysis\ReqAssigment\ReqAnalysis\ReqAnalysis.vcxproj" sur le nœud 2 (Build cible(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Simulator.cpp
@@ -16,4 +16,4 @@
 
 La génération a réussi.
 
-Temps écoulé 00:00:01.51
+Temps écoulé 00:00:02.16
