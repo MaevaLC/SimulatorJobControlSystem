@@ -1,0 +1,31 @@
+[2018-01-04 18:41:37] [info] Start Program:
+Path:"D:\Cranfield\ReqAnalysis\ReqAssigment\Debug\ReqAnalysis.exe"
+Arguments:
+Working directory: "D:\Cranfield\ReqAnalysis\ReqAssigment\ReqAnalysis\"
+Modules: Selected: D:\Cranfield\ReqAnalysis\ReqAssigment\Debug\ReqAnalysis.exe D:\Cranfield\ReqAnalysis\ReqAssigment\Debug\UnitTest.dll Excluded: 
+Sources: Selected: D:\Cranfield\ReqAnalysis\ReqAssigment\ReqAnalysis D:\Cranfield\ReqAnalysis\ReqAssigment\ReqAnalysis D:\Cranfield\ReqAnalysis\ReqAssigment\UnitTest Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 0
+Export: Binary C:\Users\m.leclech\AppData\Local\Temp\nhx0f0s4.ls0 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+
+[2018-01-04 18:41:37] [info] Module: D:\Cranfield\ReqAnalysis\ReqAssigment\Debug\ReqAnalysis.exe is selected because it matches selected pattern: 
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\ntdll.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\kernel32.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\KernelBase.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\msvcp120d.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\msvcr120d.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\advapi32.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\msvcrt.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\sechost.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\rpcrt4.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\sspicli.dll is skipped because it matches no selected patterns
+[2018-01-04 18:41:37] [info] Module: C:\Windows\SysWOW64\cryptbase.dll is skipped because it matches no selected patterns
+[2018-01-04 18:42:04] [info] ----------------------------------------------------
+[2018-01-04 18:42:04] [info] Coverage binary generated in file: C:\Users\m.leclech\AppData\Local\Temp\nhx0f0s4.ls0
+[2018-01-04 18:42:04] [info] ----------------------------------------------------

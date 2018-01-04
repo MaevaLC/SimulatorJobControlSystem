@@ -12,6 +12,7 @@
 */
 
 #include "Simulator.h"
+#include "main.h"
 
 int main(){
 	// the parameters are entered by the user of the program

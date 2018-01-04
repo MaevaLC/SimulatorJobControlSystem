@@ -202,35 +202,47 @@ void Simulator::checkNewRequest(double r1, double r2, double r3, double r4, doub
 		if (timerNextRequest < 1) {
 			Request *newR;
 			newR = getRandomRequest(r1, r2, r3, r4, u1, u2);
-			double costNewR = (*newR).getCost();
-			double tempChar = (*newR).getEnquirerTempCharged();
-			bool budget = (*newR).checkUserCanPay(costNewR + tempChar);
-			// check if the user can pay, and get temporaly charged and queued if yes
-			if (budget == true){
-				(*newR).setEnquirerTempCharged(costNewR);
-				int lenghtNewR = (*newR).getTypeRequest();
-				if (lenghtNewR == 3){
-					hugeR_queue.push_back(*newR);
-				}
-				else {
-					int r = (*newR).getTypeNodes();
-					switch (r) {
-					case 0: (*trad_requestQueue).push_back(*newR); break;
-					case 1: (*acc_requestQueue).push_back(*newR); break;
-					case 2: (*spec_requestQueue).push_back(*newR); break;
-					default: exit(33);
+			bool possible = false;
+			int t = (*newR).getTypeNodes();
+			int n = (*newR).getNodes();
+			switch (t) {
+			case 0: if (n < nbTraditionalNodes + 1) possible = true; break;
+			case 1: if (n < nbAcceleratedNodes + 1) possible = true; break;
+			case 2: if (n < nbSpecializedNodes + 1) possible = true; break;
+			case 3: if (n < nbTraditionalNodes + nbAcceleratedNodes + nbSpecializedNodes + 1) possible = true; break;
+			}
+			// check if the hardware have the capacity to deal such request
+			if (possible == true){
+				double costNewR = (*newR).getCost();
+				double tempChar = (*newR).getEnquirerTempCharged();
+				bool budget = (*newR).checkUserCanPay(costNewR + tempChar);
+				// check if the user can pay, and get temporaly charged and queued if yes
+				if (budget == true){
+					(*newR).setEnquirerTempCharged(costNewR);
+					int lenghtNewR = (*newR).getTypeRequest();
+					if (lenghtNewR == 3){
+						hugeR_queue.push_back(*newR);
+					}
+					else {
+						int r = (*newR).getTypeNodes();
+						switch (r) {
+						case 0: (*trad_requestQueue).push_back(*newR); break;
+						case 1: (*acc_requestQueue).push_back(*newR); break;
+						case 2: (*spec_requestQueue).push_back(*newR); break;
+						default: exit(33);
+						}
 					}
 				}
+				else {
+					nbUsersDenied += 1;
+				}
+				// once a request has been produced, the timer until next request is generated
+				std::default_random_engine EDgenerator(std::random_device{}());
+				std::exponential_distribution<double> EDdistribution(1);
+				double EDnumber = EDdistribution(EDgenerator);
+				while (EDnumber > 1.0) EDnumber = EDdistribution(EDgenerator);
+				timerNextRequest = long(EDnumber * 3600);
 			}
-			else {
-				nbUsersDenied += 1;
-			}
-			// once a request has been produced, the timer until next request is generated
-			std::default_random_engine EDgenerator(std::random_device{}());
-			std::exponential_distribution<double> EDdistribution(1);
-			double EDnumber = EDdistribution(EDgenerator);
-			while (EDnumber > 1.0) EDnumber = EDdistribution(EDgenerator);
-			timerNextRequest = long(EDnumber * 3600);
 		}
 		else {
 			timerNextRequest -= 60;
