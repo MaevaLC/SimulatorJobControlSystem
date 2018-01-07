@@ -83,7 +83,8 @@ shortR::shortR(double u1, double u2) : Request(u1, u2){
 	nbCores = (nbNodes - 1) * 16 + 1 + std::rand() % 15;
 	timeCap = 3600 * 1;
 	double generatedNumber = time_distribution(Rgenerator);
-	while (generatedNumber > 1.0) generatedNumber = time_distribution(Rgenerator);
+	if (generatedNumber < 0.01) generatedNumber = 0.01;
+	if (generatedNumber > 1) generatedNumber = 1;
 	time = long(generatedNumber * 3600 * 1);
 	cost = 0.003 * nbCores * (time / 3600);
 }
@@ -101,7 +102,8 @@ mediumR::mediumR(double u1, double u2) : Request(u1, u2){
 	nbCores = (nbNodes - 1) * 16 + 1 + std::rand() % 15;
 	timeCap = 3600 * 8;
 	double generatedNumber = time_distribution(Rgenerator);
-	while (generatedNumber > 1.0) generatedNumber = time_distribution(Rgenerator);
+	if (generatedNumber < 0.01) generatedNumber = 0.01;
+	if (generatedNumber > 1) generatedNumber = 1;
 	time = long(generatedNumber * 3600 * 8);
 	cost = 0.003 * nbCores * (time / 3600);
 }
@@ -119,7 +121,8 @@ largeR::largeR(double u1, double u2) : Request(u1, u2){
 	nbCores = (nbNodes - 1) * 16 + 1 + std::rand() % 15;
 	timeCap = 3600 * 16;
 	double generatedNumber = time_distribution(Rgenerator);
-	while (generatedNumber > 1.0) generatedNumber = time_distribution(Rgenerator);
+	if (generatedNumber < 0.01) generatedNumber = 0.01;
+	if (generatedNumber > 1) generatedNumber = 1;
 	time = long(generatedNumber * 3600 * 16);
 	cost = 0.003 * nbCores * (time / 3600);
 }
@@ -138,8 +141,9 @@ hugeR::hugeR(double u1, double u2) : Request(u1, u2){
 	nbCores = 128 * 16;
 	timeCap = 3600 * 64;
 	double generatedNumber = time_distribution(Rgenerator);
-	while (generatedNumber > 1.0) generatedNumber = time_distribution(Rgenerator);
-	time = long(generatedNumber * 3600 * 64);
+	if (generatedNumber < 0.01) generatedNumber = 0.01;
+	if (generatedNumber > 1) generatedNumber = 1;
+	time = 3600 * 64;
 	cost = 0.003 * nbCores * (time / 3600);
 }
 
@@ -272,4 +276,14 @@ void Request::setEnquirerTempCharged(double price){
 */
 double Request::getEnquirerTempCharged(){
 	return (*enquirer).getTempCharged();
+}
+
+/**
+* \fn User* Request::getEnquirer()()
+* \brief Accessor of Request
+*
+* \return the pointeur to the Enquirer of the request
+*/
+User* Request::getEnquirer(){
+	return enquirer;
 }

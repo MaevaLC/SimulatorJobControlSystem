@@ -13,6 +13,7 @@
 
 #include "Simulator.h"
 #include "main.h"
+#include "vld.h"
 
 int main(){
 	// the parameters are entered by the user of the program

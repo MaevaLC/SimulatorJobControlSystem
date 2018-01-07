@@ -65,7 +65,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -87,7 +87,6 @@
     <ClInclude Include="..\ReqAnalysis\Requests.h" />
     <ClInclude Include="..\ReqAnalysis\Simulator.h" />
     <ClInclude Include="..\ReqAnalysis\Users.h" />
-    <ClInclude Include="Special.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ReqAnalysis\Conversion.cpp" />
@@ -95,7 +94,6 @@
     <ClCompile Include="..\ReqAnalysis\Requests.cpp" />
     <ClCompile Include="..\ReqAnalysis\Simulator.cpp" />
     <ClCompile Include="..\ReqAnalysis\Users.cpp" />
-    <ClCompile Include="Special.cpp" />
     <ClCompile Include="unittest.cpp" />
   </ItemGroup>
   <ItemGroup>

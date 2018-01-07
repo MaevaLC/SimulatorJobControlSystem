@@ -52,6 +52,7 @@ public:
 	long getTime();
 	long getTimeCap();
 	long getWaitTime();
+	User* getEnquirer();
 	void setEnquirerCharged(double price);
 	void setEnquirerTempCharged(double price);
 	void setTime(long time);

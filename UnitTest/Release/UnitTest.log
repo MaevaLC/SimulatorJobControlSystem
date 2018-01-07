@@ -1,0 +1,27 @@
+﻿La génération a démarré 05/01/2018 18:23:40.
+     1>Projet "D:\Cranfield\ReqAnalysis\ReqAssigment\UnitTest\UnitTest.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\UnitTest\include" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /FC /errorReport:prompt ..\ReqAnalysis\Conversion.cpp ..\ReqAnalysis\main.cpp ..\ReqAnalysis\Requests.cpp ..\ReqAnalysis\Simulator.cpp ..\ReqAnalysis\Users.cpp unittest.cpp
+         Conversion.cpp
+         main.cpp
+         Requests.cpp
+         Simulator.cpp
+         Users.cpp
+         unittest.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Cranfield\ReqAnalysis\ReqAssigment\Release\UnitTest.dll" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\UnitTest\lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Cranfield\ReqAnalysis\ReqAssigment\Release\UnitTest.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Cranfield\ReqAnalysis\ReqAssigment\Release\UnitTest.lib" /MACHINE:X86 /SAFESEH /DLL Release\Conversion.obj
+         Release\main.obj
+         Release\Requests.obj
+         Release\Simulator.obj
+         Release\Users.obj
+         Release\unittest.obj
+     1>LINK : warning LNK4075: ' /INCREMENTAL' ignoré à cause de la spécification '/LTCG'
+            Création de la bibliothèque D:\Cranfield\ReqAnalysis\ReqAssigment\Release\UnitTest.lib et de l'objet D:\Cranfield\ReqAnalysis\ReqAssigment\Release\UnitTest.exp
+         Génération de code en cours
+         Fin de la génération du code
+         UnitTest.vcxproj -> D:\Cranfield\ReqAnalysis\ReqAssigment\Release\UnitTest.dll
+     1>Génération du projet "D:\Cranfield\ReqAnalysis\ReqAssigment\UnitTest\UnitTest.vcxproj" terminée (Build cible(s)).
+
+La génération a réussi.
+
+Temps écoulé 00:00:04.43

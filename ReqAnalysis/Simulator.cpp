@@ -73,10 +73,24 @@ Simulator::Simulator(long runningTime){
 }
 
 /**
-* \fn Simulator::Simulator(long runningTime)
+* \fn Simulator::~Simulator(long runningTime)
 * \brief destructor of Simulator
 */
 Simulator::~Simulator(){
+	for (int i = 0; i < int((*acc_requestQueue).size()); i++){
+		delete (*acc_requestQueue)[i].getEnquirer();
+	}
+	for (int i = 0; i < int((*spec_requestQueue).size()); i++){
+		delete (*spec_requestQueue)[i].getEnquirer();
+	}
+	for (int i = 0; i < int((*trad_requestQueue).size()); i++){
+		delete (*trad_requestQueue)[i].getEnquirer();
+	}
+	for (int i = 0; i < int(hugeR_queue.size()); i++){
+		delete hugeR_queue[i].getEnquirer();
+	}
+	delete (*hugeRProcessed).getEnquirer();
+
 	delete acc_requestProcessing;
 	delete acc_requestQueue;
 	delete hugeRProcessed;
@@ -235,14 +249,20 @@ void Simulator::checkNewRequest(double r1, double r2, double r3, double r4, doub
 				}
 				else {
 					nbUsersDenied += 1;
+					delete (*newR).getEnquirer();
 				}
 				// once a request has been produced, the timer until next request is generated
 				std::default_random_engine EDgenerator(std::random_device{}());
 				std::exponential_distribution<double> EDdistribution(1);
 				double EDnumber = EDdistribution(EDgenerator);
-				while (EDnumber > 1.0) EDnumber = EDdistribution(EDgenerator);
+				if (EDnumber < 0.01) EDnumber = 0.01;
+				if (EDnumber > 1) EDnumber = 1;
 				timerNextRequest = long(EDnumber * 3600);
 			}
+			else {
+				delete (*newR).getEnquirer();
+			}
+			delete newR;
 		}
 		else {
 			timerNextRequest -= 60;
@@ -260,6 +280,7 @@ void Simulator::checkWorkOver(std::vector<Request> *ReqProcess){
 	int sizeProcess = (*ReqProcess).size();
 	for (int i = sizeProcess; i > 0; i--){
 		if (((*ReqProcess)[i - 1]).getTime() < 0){
+			delete (*ReqProcess)[i-1].getEnquirer();
 			(*ReqProcess).erase((*ReqProcess).begin() + i - 1);
 			// if the process is freed from somes jobs, it's flagged as not full anymore
 			processFull = false;
@@ -365,6 +386,7 @@ void Simulator::completeHugeRQueue(){
 	std::vector<int> date = convert(timeElapsed);
 	// simple test to just put in the system on the Friday evening (charge the user, update statistics)
 	if ((hugeR_queue.size() > 0) && (date[0] == 4) && (date[1] < 18) && (date[2] < 2)){
+		delete (*hugeRProcessed).getEnquirer();
 		*hugeRProcessed = hugeR_queue[0];
 		statistic(*hugeRProcessed);
 		double cost = hugeR_queue[0].getCost();

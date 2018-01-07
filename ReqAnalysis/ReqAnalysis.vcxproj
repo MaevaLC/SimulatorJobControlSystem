@@ -47,7 +47,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <Profile>true</Profile>
+      <Profile>false</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Conversion.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="Requests.h" />
     <ClInclude Include="Simulator.h" />
     <ClInclude Include="Users.h" />
